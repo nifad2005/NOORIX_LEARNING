@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 export default function CategoryCard({ category }:any) {
+  console.log("Category -card", category);
   return (
     <div
       key={category.id}
@@ -9,10 +10,10 @@ export default function CategoryCard({ category }:any) {
     >
       <div className="p-4">
         <h3 className="text-lg font-bold text-slate-700 mb-2">
-          {category.name}
+          {category}
         </h3>
-        <p className="text-slate-600 mb-4">{category.description}</p>
-        <Link
+        <p className="text-slate-600 mb-4">Click to see more courses of {category}</p>
+        {/* <Link
           href={`/category/${category.name
             .toLocaleLowerCase()
             .replace(/\s+/g, "-")}`}
@@ -20,7 +21,7 @@ export default function CategoryCard({ category }:any) {
           <button className="bg-sky-500 text-white px-4 py-2 rounded-lg hover:bg-sky-600">
             Explore
           </button>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

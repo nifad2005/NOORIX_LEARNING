@@ -1,12 +1,11 @@
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import NextAuth from "next-auth";
 import clientPromise from "@/libs/database/authDB";
-import { MongoClient } from "mongodb";
 import Google from "next-auth/providers/google";
 
 
 
-const authOptions = {
+export const authOptions = {
     providers:[
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -15,6 +14,13 @@ const authOptions = {
     ],
     adapter:MongoDBAdapter(clientPromise),
     secret: process.env.NEXTAUTH_SECRET,
+    authorization: {
+        params:{
+            prompt:"select_account",
+            access_type:"offline",
+            response_type:"code",
+        }
+    },
     events: {
         signIn: async (message) => {
             console.log("signIn", message);

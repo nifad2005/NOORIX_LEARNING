@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 function Footer() {
   return (
-    <footer className="bg-slate-800 text-white py-8">
+    <footer className="bg-slate-800 z-10 relative text-white py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           {/* Logo and Description */}

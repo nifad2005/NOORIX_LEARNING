@@ -15,6 +15,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
   return (
     <html lang="en">
       <body
@@ -22,10 +24,10 @@ export default function RootLayout({
       > 
         <Providers>
           <Navbar/>
-          <div className="min-h-screen">
-            { children}
-          </div>
-          <Footer/>
+            <div className="min-h-screen py-18 bg-slate-50">
+              { children}
+            </div>
+           <Footer />
         </Providers>
       </body>
     </html>

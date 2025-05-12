@@ -14,7 +14,8 @@ function Courses() {
   return (
     <section className="py-12  mx-auto">
       <div className=" container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-sky-500 mb-6">Trending Courses</h2>
+        <h2 className="text-3xl font-bold text-sky-500 ">Trending Courses</h2>
+        <p className='text-red-600 mb-6 '>This Feature is coming soon.</p>
         <div className="flex flex-wrap gap-6">
           {trendingCourses.map((course) => (
             <div
