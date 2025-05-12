@@ -6,14 +6,13 @@ import { useSelector } from 'react-redux';
 
 
 function CreateCourse() {
-    const reader = new FileReader()
-    const [data, setData] = useState();
-    const {data: session} = useSession()
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [newCategory, setNewCategory] = useState(false);
-    const [newCategoryValue, setNewCategoryValue] = useState('');
-    const [checkCategory, setCheckCategory] = useState(false);
+  const [data, setData] = useState();
+  const {data: session} = useSession()
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [newCategory, setNewCategory] = useState(false);
+  const [newCategoryValue, setNewCategoryValue] = useState('');
+  const [checkCategory, setCheckCategory] = useState(false);
   useEffect(()=>{
     const getCategories = async () => {
       try{
@@ -28,58 +27,62 @@ function CreateCourse() {
     }
     getCategories()
   },[])
-
+  
   const handleNewCategory = (e) => {
     setCategories([...categories,newCategoryValue])
     setNewCategory(false);
     setCheckCategory(true)
     
   }
-   const handleSubmit = async(e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // console.log(e.target[0].value)
     const response = await fetch('/api/courses/course', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        authorDetails:{
+          name:data?.author,
+          authorId: session.user._id,
         },
-        body: JSON.stringify({
-            authorDetails:{
-                name:data?.author,
-                authorId: session.user._id,
-            },
-            courseDatils :{
-                title: data?.title,
-                description: data?.description,
-                image: data?.image,
-                price: data?.price,
-                category: data?.category.replaceAll(" ","-"),
-            },
-            courseContent:{
-                sections:data?.content
-            }
-        }),
-        
+        courseDatils :{
+          title: data?.title,
+          description: data?.description,
+          image: data?.image,
+          price: data?.price,
+          category: data?.category.replaceAll(" ","-"),
+        },
+        courseContent:{
+          sections:data?.content
+        }
+      }),
+      
     })
     const resData  = await response.json();
     if (!response.ok) {
-        console.log(resData.message);
-        return;
+      console.log(resData.message);
+      return;
     }
     console.log('Course created successfully');
     
-   }
-   console.log("-category", newCategory);
-   const handleChange = (e)=>{
+  }
+  console.log("-category", newCategory);
+  const handleChange = (e)=>{
     if(e.target.id === "category"){
       e.target.value === "new" ? setNewCategory(true) : setNewCategory(false);
     }
     if(e.target.id === "image"){
-        const file = e.target.files[0]
-        reader.readAsDataURL(file)
-        reader.onload = () => {
+      const file = e.target.files[0]
+        if(file){
+
+          const reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = () => {
             const base64Image = reader.result
             setData({...data,[e.target.id]:base64Image})   
+          }
         }
     }
     setData({...data,[e.target.id]:e.target.value})
