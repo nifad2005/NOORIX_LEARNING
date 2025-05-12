@@ -5,7 +5,7 @@ import Google from "next-auth/providers/google";
 
 
 
-export const authOptions = {
+const handler =  NextAuth( {
     providers:[
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID,
@@ -14,13 +14,7 @@ export const authOptions = {
     ],
     adapter:MongoDBAdapter(clientPromise),
     secret: process.env.NEXTAUTH_SECRET,
-    authorization: {
-        params:{
-            prompt:"select_account",
-            access_type:"offline",
-            response_type:"code",
-        }
-    },
+    
     events: {
         signIn: async (message) => {
             console.log("signIn", message);
@@ -36,7 +30,6 @@ export const authOptions = {
         },
     },
 
-}
+})
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

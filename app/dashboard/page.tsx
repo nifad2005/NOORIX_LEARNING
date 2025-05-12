@@ -1,5 +1,6 @@
 "use client"
 import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +13,6 @@ function Page() {
     return (
         <div className="container mx-auto py-8 px-4">
             <h1 className="text-3xl font-bold text-sky-500 mb-6">Dashboard</h1>
-
             {/* Taken Classes Section */}
             <div className="mb-8">
                 <h2 className="text-2xl font-bold text-slate-700 mb-4">Taken Classes</h2>

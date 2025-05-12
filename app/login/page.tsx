@@ -18,6 +18,7 @@ export default function page() {
         },
         body: JSON.stringify({
           role: 'learner',
+          email:session?.user?.email
         }),
       })
       if (!response.ok) {
